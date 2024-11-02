@@ -4,7 +4,7 @@
 import anthropic
 
 client = anthropic.Anthropic(
-    api_key="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",
+    api_key="",
 )
 
 
