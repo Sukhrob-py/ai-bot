@@ -7,6 +7,7 @@ commands = [
     types.BotCommand(command="/geminipro", description="Gemini 1.5-pro model"),
     types.BotCommand(command="/thebai", description="TheB ai 4.0 model"),
     types.BotCommand(command="/lama3", description="Llama-3.1 model"),
+    types.BotCommand(command="/deepseek", description="Deepseek LLM model"),
     types.BotCommand(command="/claude35", description="Claude-3.5 Sonnet model"),
 ]
 

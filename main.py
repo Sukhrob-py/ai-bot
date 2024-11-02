@@ -11,6 +11,7 @@ from models.claude35sonnet import claude
 from models.geminipro import geminiPro
 from models.thebai import thebai
 from models.gpt import gpt
+from models.deepseek import deepseek
 
 from dotenv import load_dotenv
 
@@ -28,6 +29,7 @@ MODELS = {
     "⚡ gemini-1.5-flash": "gemini-model-id",
     "🌟 gemini-1.5-pro": "gemini-model-id",
     "🚀 theBai-4.0": "theb ai-4.0",
+    "🐋 deepseek-llm": "deep seek LLM",
     "🐪 lama3": "lama-3.1",
     "🧠 claude35": "claude-3.5-sonnet",
 }
@@ -53,7 +55,8 @@ def model_selection_keyboard():
         keyboard.row(*buttons[i : i + 2])
     keyboard.add(buttons[3])
     keyboard.add(buttons[4])
-    keyboard.add(buttons[5])
+    for i in range(5, 7, 2):
+        keyboard.row(*buttons[i : i + 2])
     return keyboard
 
 
@@ -113,6 +116,16 @@ async def gpt_command(message: types.Message):
     )
 
 
+@dp.message_handler(commands=["deepseek"])
+async def gpt_command(message: types.Message):
+    await dp.current_state(user=message.from_user.id).update_data(
+        selected_model="🐋 deepseek-llm"
+    )
+    await message.reply(
+        "You've switched to the Deepseek LLM model. Now send your question."
+    )
+
+
 @dp.message_handler(commands=["claude35"])
 async def gpt_command(message: types.Message):
     await dp.current_state(user=message.from_user.id).update_data(
@@ -168,6 +181,10 @@ async def handle_question(message: types.Message):
 
     elif selected_model == "🚀 theBai-4.0":
         res = thebai(message.text)
+        await message.reply(res)
+
+    elif selected_model == "🐋 deepseek-llm":
+        res = deepseek(message.text)
         await message.reply(res)
 
 
